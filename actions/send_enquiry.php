@@ -45,8 +45,8 @@ if (($_SERVER["REQUEST_METHOD"] == "POST")) {
     $mail->isSMTP();                                            // Set mailer to use SMTP
     $mail->Host       = 'smtp.mailtrap.io';                     // Specify main and backup SMTP servers
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = '';              // SMTP username
-    $mail->Password   = '';              // SMTP password
+    $mail->Username   = 'Fill with your username';              // SMTP username
+    $mail->Password   = 'Fill with your password';              // SMTP password
     $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
     $mail->Port       = 2525;                                   // TCP port to connect to
 
