@@ -6,6 +6,7 @@ $(document).ready(function () {
         $(this).parsley().validate();
         // If the form is valid, will proceed with submission.
         if ($(this).parsley().isValid()) {
+            
             $("button[type='submit']", this)
                 .text("Sending...")
                 .attr("disabled", "disabled");

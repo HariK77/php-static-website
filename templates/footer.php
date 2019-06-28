@@ -19,11 +19,18 @@
 
 <?php
 
-if ($active === "contact-us.php") {
+if ($active === "contact-us-one.php") {
 
     echo '<script src="assets/js/parsley.min.js"></script>';
 
     echo '<script src="assets/js/form-validation.js"></script>';
+}
+
+if ($active === "contact-us-two.php") {
+
+    echo '<script src="assets/js/parsley.min.js"></script>';
+
+    echo '<script src="assets/js/form-validation-ajax.js"></script>';
 }
 
 ?>

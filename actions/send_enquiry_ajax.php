@@ -7,9 +7,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 
-include_once("php_mailer/PHPMailer.php"); 
-include_once("php_mailer/Exception.php"); 
-include_once("php_mailer/SMTP.php"); 
+include_once("php_mailer/PHPMailer.php");
+include_once("php_mailer/Exception.php");
+include_once("php_mailer/SMTP.php");
 
 function clean_data($data)
 {
@@ -18,6 +18,7 @@ function clean_data($data)
     $data = htmlspecialchars($data);
     return $data;
 }
+
 
 if (($_SERVER["REQUEST_METHOD"] == "POST")) {
 
@@ -33,14 +34,14 @@ if (($_SERVER["REQUEST_METHOD"] == "POST")) {
                     Email: $email <br>
                     Mobile Number: $phone <br>
                     Message: $subject <br>
-                    Message: $message"; 
+                    Message: $message";
 
     // Instantiation and passing `true` enables exceptions
 
-    $mail = new PHPMailer(true);
+    $mail = new PHPMailer();
 
     //Server settings
-    $mail->SMTPDebug = 2;                                       // Enable verbose debug output
+
     $mail->isSMTP();                                            // Set mailer to use SMTP
     $mail->Host       = 'smtp.mailtrap.io';                     // Specify main and backup SMTP servers
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
@@ -52,33 +53,40 @@ if (($_SERVER["REQUEST_METHOD"] == "POST")) {
     //Recipients
     $mail->setFrom('krish75@krish.com', 'Hari Krishna Velpula'); // From Email Address
     $mail->addAddress('krish75@krish.com', 'Hari Krishna Velpula');     // To Email Address
-    // Content
+
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = "You have a got a New Form submission from website";
     $mail->Body    = $body;
 
     $result = $mail->send();
+    // $result = true;
+    $data = array();
 
     if(!$result) {
 
-        $_SESSION['fail'] = "Sorry !! Email sending failed";
+        $data['result'] = "fail";
+        $data['message'] = "Mail sending failed !! PLease try again";
 
-        header('Location: ../contact-us-one.php');
+        header('Content-Type: application/json');
+        echo json_encode($data);
 
     } else {
 
-        $_SESSION['success'] = "Thank You for Contacting Us! We will get back to you";
+        $data['result'] = "success";
+        $data['message'] = "Thank You for Contacting Us! We will get back to you";
 
-        header('Location: ../contact-us-one.php');
+        header('Content-Type: application/json');
+        echo json_encode($data);
 
     }
 
 
 } else {
 
-    $_SESSION['fail'] = "Some Unknown Error Happened !!!";
+    $data['message'] = "Some Unknown Error Happened !!!";
 
-    header('Location: ../contact-us-one.php');
+    header('Content-Type: application/json');
+    echo json_encode($data);
 
 }
 
